@@ -5,6 +5,7 @@ import AccountAuthorizations from './views/accountAuthorizations';
 import AccountLayout from './views/accountLayout';
 import AccountSettingsLayout from './views/settings/account/accountSettingsLayout';
 import AccountNotifications from './views/settings/account/accountNotifications';
+import AccountNotificationFineTuning from './views/settings/account/accountNotificationFineTuning';
 import AccountEmails from './views/settings/account/accountEmails';
 import AccountAvatar from './views/settings/account/avatar';
 
@@ -116,14 +117,21 @@ function appendTrailingSlash(nextState, replaceState) {
   }
 }
 
+const accountSettingsDetailedRoutes = [
+  <Route
+    key="project-alerts/"
+    path="project-alerts/"
+    name="Fine Tune Alerts"
+    component={errorHandler(AccountNotificationFineTuning)}
+  />,
+];
+
 const accountSettingsRoutes = [
   <IndexRedirect key="account-settings-index" to="notifications/" />,
-  <Route
-    key="notifications/"
-    path="notifications/"
-    name="Notifications"
-    component={errorHandler(AccountNotifications)}
-  />,
+  <Route key="notifications/" path="notifications/" name="Notifications">
+    <IndexRoute component={errorHandler(AccountNotifications)} />,
+    {accountSettingsDetailedRoutes}
+  </Route>,
   <Route
     key="emails/"
     path="emails/"
